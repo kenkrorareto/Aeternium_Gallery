@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(to right, #ffffff, #ffc0cb, #ffa500);
+    background: linear-gradient(to right, #430152, #973e03);
     margin-top: 2em;
 }
 
@@ -68,8 +68,10 @@ img {
 }
 
 .leaflet-marker-icon {
-    border: none !important;  /* Remove the border */
-    box-shadow: none !important; /* Remove any shadow */
+    border: none !important;
+    /* Remove the border */
+    box-shadow: none !important;
+    /* Remove any shadow */
 }
 
 .leaflet-pane.leaflet-shadow-pane {
