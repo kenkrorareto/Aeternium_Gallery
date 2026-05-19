@@ -1,24 +1,33 @@
 import os
 import json
+import sys
 
-# Ruta de la carpeta que contiene las imágenes
+# Carpeta con las imágenes y archivo JSON de salida
 folder_path = "images"
-
-# Ruta del archivo JSON de salida
 output_json = "images.json"
 
-# Verificar si la carpeta existe
-if os.path.exists(folder_path) and os.path.isdir(folder_path):
-    # Obtener la lista de archivos en la carpeta
-    file_list = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+# Extensiones tratadas como imagen (ignora .DS_Store, Thumbs.db, etc.)
+valid_ext = (".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".avif", ".bmp")
 
-    # Crear el diccionario para el archivo JSON
-    json_data = {"images": [f"../images/{file_name}" for file_name in file_list]}
-
-    # Escribir el diccionario en el archivo JSON
-    with open(output_json, "w") as json_file:
-        json.dump(json_data, json_file, indent=4)
-
-    print(f"Archivo JSON creado correctamente: {output_json}")
-else:
+if not (os.path.exists(folder_path) and os.path.isdir(folder_path)):
     print(f"La carpeta no existe: {folder_path}")
+    sys.exit(1)
+
+# Lista ordenada y estable (diffs mínimos al regenerar en cada commit)
+file_list = sorted(
+    (
+        f
+        for f in os.listdir(folder_path)
+        if os.path.isfile(os.path.join(folder_path, f))
+        and f.lower().endswith(valid_ext)
+    ),
+    key=str.lower,
+)
+
+json_data = {"images": [f"../images/{file_name}" for file_name in file_list]}
+
+with open(output_json, "w", encoding="utf-8") as json_file:
+    json.dump(json_data, json_file, indent=4, ensure_ascii=False)
+    json_file.write("\n")
+
+print(f"{output_json} actualizado: {len(file_list)} imágenes")
