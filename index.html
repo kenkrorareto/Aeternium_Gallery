@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,30 @@
 
 <body>
 
+    <header class="page-header">
+        <h1 class="page-title">Galería de Personajes</h1>
+
+        <div class="toolbar" role="search">
+            <input id="search" class="search-input" type="search" placeholder="Buscar personaje…"
+                autocomplete="off" spellcheck="false" aria-label="Buscar personaje por nombre">
+
+            <label class="sort-field">
+                <span>Orden</span>
+                <select id="sort" class="sort-select" aria-label="Ordenar personajes">
+                    <option value="asc">A → Z</option>
+                    <option value="desc">Z → A</option>
+                </select>
+            </label>
+        </div>
+
+        <div id="filters" class="filters" role="group" aria-label="Filtrar por inicial"></div>
+
+        <p id="result-count" class="result-count" aria-live="polite"></p>
+    </header>
+
     <div id="gallery" class="centered-image"></div>
+
+    <p id="no-results" class="no-results" hidden>No se encontraron personajes.</p>
 
     <script src="js/script.js"></script>
 </body>
